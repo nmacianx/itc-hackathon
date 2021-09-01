@@ -1,4 +1,4 @@
-tensorflow==2.6.0
+tensorflow-cpu==2.6.0
 Flask==2.0.1
 boto3==1.18.33
 numpy==1.19.5
