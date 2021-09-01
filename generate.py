@@ -1,6 +1,7 @@
 from flask import Flask, jsonify
 import boto3
 import os
+import gdown
 import numpy as np
 from PIL import Image
 from uuid import uuid4
@@ -13,6 +14,7 @@ TRUNCATION_PSI = 0.3
 s3 = None
 gen = None
 w_avg = None
+CAT_URL = 'https://drive.google.com/uc?id=1kmzbylCAKV3zBX5sAsUiwgrnTfd8gRrf'
 
 
 @app.route('/')
@@ -46,6 +48,8 @@ if __name__ == '__main__':
     s3 = boto3.client('s3',
                       aws_access_key_id=aws_access_key_id,
                       aws_secret_access_key=aws_secret_access_key)
+
+    gdown.download(CAT_URL, os.path.join('weights', 'cat.npy'))
 
     gen = StyleGan2Generator(weights='cat', impl='ref', gpu=False)
     w_avg = np.load('weights/cat_dlatent_avg.npy')
